@@ -143,19 +143,32 @@ aug_mv(aug, src, dst);
       const char *src
       const char *dst
 
-SV *
+SV*
 aug_span(aug, path);
       Config_Augeas* aug
       char* path
     PREINIT:
       int ret ;
       char *filename = NULL;
+      const char *option = NULL;
       uint label_start, label_end, value_start, value_end, span_start, span_end;
       HV *span_hash;
     CODE:
+      // Check that span is enabled
+      // FIXME: Use AUGEAS_SPAN_OPTION
+      if (aug_get(aug, "/augeas/span", &option) != 1) {
+	 croak ("Error: option /augeas/span not found\n");
+      }
+      // FIXME: Use AUG_DISABLE
+      if (strcmp("disable", option) == 0) {
+	 croak ("Error: Span is not enabled.\n");
+      }
       ret = aug_span(aug, path, &filename, &label_start, &label_end, &value_start, &value_end, &span_start, &span_end);
       span_hash = newHV();
-      (void)hv_store(span_hash, "filename", 8, newSVpv(filename, strlen(filename)), 0);
+      if (filename) {
+         (void)hv_store(span_hash, "filename", 8, newSVpv(filename, strlen(filename)), 0);
+         free(filename) ;
+      }
       (void)hv_store(span_hash, "label_start", 11, newSViv(label_start), 0);
       (void)hv_store(span_hash, "label_end", 9, newSViv(label_end), 0);
       (void)hv_store(span_hash, "value_start", 11, newSViv(value_start), 0);

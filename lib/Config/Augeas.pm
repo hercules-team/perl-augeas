@@ -121,18 +121,18 @@ sub new {
     my $root  = delete $args{root} || '';
 
     my $save = delete $args{save} || '';
-    if    ($save eq 'backup')  { $flags ||= &AUG_SAVE_BACKUP }
-    elsif ($save eq 'newfile') { $flags ||= &AUG_SAVE_NEWFILE }
-    elsif ($save =~ 'noop')    { $flags ||= &AUG_SAVE_NOOP }
+    if    ($save eq 'backup')  { $flags |= &AUG_SAVE_BACKUP }
+    elsif ($save eq 'newfile') { $flags |= &AUG_SAVE_NEWFILE }
+    elsif ($save =~ 'noop')    { $flags |= &AUG_SAVE_NOOP }
     elsif ($save) { 
 	croak  __PACKAGE__," new: unexpected save value: $save. ",
 	  "Expected backup or newfile";
     }
 
-    $flags ||= &AUG_TYPE_CHECK  if ( delete $args{type_check}  || 0 );
-    $flags ||= &AUG_NO_STDINC   if ( delete $args{no_std_inc}  || 0 ) ;
-    $flags ||= &AUG_NO_LOAD     if ( delete $args{no_load}     || 0 ) ;
-    $flags ||= &AUG_ENABLE_SPAN if ( delete $args{enable_span} || 0 ) ;
+    $flags |= &AUG_TYPE_CHECK  if ( delete $args{type_check}  || 0 );
+    $flags |= &AUG_NO_STDINC   if ( delete $args{no_std_inc}  || 0 ) ;
+    $flags |= &AUG_NO_LOAD     if ( delete $args{no_load}     || 0 ) ;
+    $flags |= &AUG_ENABLE_SPAN if ( delete $args{enable_span} || 0 ) ;
 
     croak  __PACKAGE__," new: unexpected parameters: ",
       join (' ',keys %args) 

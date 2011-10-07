@@ -8,7 +8,7 @@ use File::Copy ;
 
 use warnings ;
 use strict;
-use Test::More tests => 24 ;
+use Test::More tests => 26 ;
 
 ok(1,"Compilation done");
 
@@ -80,8 +80,10 @@ is_deeply(\@a,["/files/etc/hosts"],"match result") ;
 $ret = $aug->count_match("/files/etc/hosts/") ;
 is($ret,1,"count_match result") ;
 
-my $span = $aug->span('/files/etc/hosts/1') ;
-is($span->filename, '/etc/hosts', "span /etc/hosts/1") ;
+my $span = $aug->span('/files/etc/hosts/2') ;
+is($span->{filename}, 'augeas-root/etc/hosts', "filename of span /files/etc/hosts/2") ;
+is($span->{span_start}, '30', "span_start of span /files/etc/hosts/2") ;
+is($span->{span_end}, '48', "span_start of span /files/etc/hosts/2") ;
 
 $ret = $aug->save ;
 ok($ret,"save done") ;
