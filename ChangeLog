@@ -1,3 +1,10 @@
+2011-10-07  Raphaël Pinson <raphink@cpan.org> v0.801
+
+	* lib/Config/Augeas.pm: Added method aug_span
+	* lib/Config/Augeas.xs: Added interface for aug_span
+	Fixed flags by using binary or instead of logical or.
+	
+
 2010-02-18  Dominique Dumont  <domi.dumont@free.fr> v0.701
 
 	* lib/Config/Augeas.pm: Added new error strings from Augeas 0.7.0
