@@ -50,6 +50,7 @@ BOOT:
     newCONSTSUB(stash, "AUG_SAVE_NOOP",    newSViv(AUG_SAVE_NOOP));
     newCONSTSUB(stash, "AUG_NO_LOAD",      newSViv(AUG_NO_LOAD));
     newCONSTSUB(stash, "AUG_NO_MODL_AUTOLOAD", newSViv(AUG_NO_MODL_AUTOLOAD));
+    newCONSTSUB(stash, "AUG_ENABLE_SPAN", newSViv(AUG_ENABLE_SPAN));
 
 
     /* Error reporting */
@@ -62,6 +63,7 @@ BOOT:
     newCONSTSUB(stash, "AUG_ESYNTAX",   newSViv(AUG_ESYNTAX));
     newCONSTSUB(stash, "AUG_ENOLENS",   newSViv(AUG_ENOLENS));
     newCONSTSUB(stash, "AUG_EMXFM",     newSViv(AUG_EMXFM));
+    newCONSTSUB(stash, "AUG_ENOSPAN", newSViv(AUG_ENOSPAN));
 
   }
 
@@ -140,6 +142,30 @@ aug_mv(aug, src, dst);
       Config_Augeas *aug
       const char *src
       const char *dst
+
+SV *
+aug_span(aug, path);
+      Config_Augeas* aug
+      char* path
+    PREINIT:
+      int ret ;
+      char *filename = NULL;
+      uint label_start, label_end, value_start, value_end, span_start, span_end;
+      HV *span_hash;
+    CODE:
+      ret = aug_span(aug, path, &filename, &label_start, &label_end, &value_start, &value_end, &span_start, &span_end);
+      span_hash = newHV();
+      (void)hv_store(span_hash, "filename", 8, newSVpv(filename, strlen(filename)), 0);
+      (void)hv_store(span_hash, "label_start", 11, newSViv(label_start), 0);
+      (void)hv_store(span_hash, "label_end", 9, newSViv(label_end), 0);
+      (void)hv_store(span_hash, "value_start", 11, newSViv(value_start), 0);
+      (void)hv_store(span_hash, "value_end", 9, newSViv(value_end), 0);
+      (void)hv_store(span_hash, "span_start", 10, newSViv(span_start), 0);
+      (void)hv_store(span_hash, "span_end", 8, newSViv(span_end), 0);
+      RETVAL = newRV_noinc((SV *)span_hash);
+    OUTPUT:
+      RETVAL
+      
 
 void
 aug_match(aug, pattern);

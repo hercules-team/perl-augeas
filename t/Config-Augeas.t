@@ -8,7 +8,7 @@ use File::Copy ;
 
 use warnings ;
 use strict;
-use Test::More tests => 23 ;
+use Test::More tests => 24 ;
 
 ok(1,"Compilation done");
 
@@ -36,7 +36,7 @@ foreach my $f (qw!hosts ssh/sshd_config!) {
 my $written_file = $aug_root."etc/hosts.augnew" ;
 unlink ($written_file) if -e $written_file ;
 
-my $aug = Config::Augeas->new( root => $aug_root, save => 'newfile' ) ;
+my $aug = Config::Augeas->new( root => $aug_root, save => 'newfile', enable_span => 1 ) ;
 
 ok($aug,"Created new Augeas object");
 
@@ -80,6 +80,9 @@ is_deeply(\@a,["/files/etc/hosts"],"match result") ;
 $ret = $aug->count_match("/files/etc/hosts/") ;
 is($ret,1,"count_match result") ;
 
+my $span = $aug->span('/files/etc/hosts/1') ;
+is($span->filename, '/etc/hosts', "span /etc/hosts/1") ;
+
 $ret = $aug->save ;
 ok($ret,"save done") ;
 
@@ -122,5 +125,6 @@ $emsg= $aug->error_minor_message ;
 ok($emsg, "error_minor_message: $emsg") ;
 $emsg= $aug->error_details ;
 ok($emsg, "error_details: $emsg") ;
+
 
 #$aug->print('') ;

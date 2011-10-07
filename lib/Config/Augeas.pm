@@ -129,9 +129,10 @@ sub new {
 	  "Expected backup or newfile";
     }
 
-    $flags ||= &AUG_TYPE_CHECK if ( delete $args{type_check} || 0 );
-    $flags ||= &AUG_NO_STDINC  if ( delete $args{no_std_inc} || 0 ) ;
-    $flags ||= &AUG_NO_LOAD    if ( delete $args{no_load}    || 0 ) ;
+    $flags ||= &AUG_TYPE_CHECK  if ( delete $args{type_check}  || 0 );
+    $flags ||= &AUG_NO_STDINC   if ( delete $args{no_std_inc}  || 0 ) ;
+    $flags ||= &AUG_NO_LOAD     if ( delete $args{no_load}     || 0 ) ;
+    $flags ||= &AUG_ENABLE_SPAN if ( delete $args{enable_span} || 0 ) ;
 
     croak  __PACKAGE__," new: unexpected parameters: ",
       join (' ',keys %args) 
@@ -335,6 +336,22 @@ sub move {
 
     my $result = $self->{aug_c} -> mv($src,$dst) ;
     return $result == 0 ? 1 : 0 ;
+}
+
+
+=head2 span ( path )
+
+Returns a hash containing the filename, label_start, label_end,
+value_start, value_end, span_start and span_end of the given C<path>.
+
+=cut
+
+sub span {
+    my $self = shift ;
+    my $path = shift || croak __PACKAGE__," span: undefined path";
+
+    return $self->{aug_c} -> span($path) ;
+
 }
 
 =head2 match ( pattern )
