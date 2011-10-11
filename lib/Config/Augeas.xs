@@ -27,10 +27,18 @@
 #include <augeas.h>
 
 /* Defines from Augeas' internal.h */
+#ifndef AUGEAS_META_TREE
 #define AUGEAS_META_TREE "/augeas"
+#endif
+#ifndef AUGEAS_SPAN_OPTION
 #define AUGEAS_SPAN_OPTION AUGEAS_META_TREE "/span"
+#endif
+#ifndef AUGEAS_ENABLE
 #define AUG_ENABLE "enable"
+#endif
+#ifndef AUGEAS_DISABLE
 #define AUG_DISABLE "disable"
+#endif
 
 typedef augeas   Config_Augeas ;
 typedef PerlIO*  OutputStream;
