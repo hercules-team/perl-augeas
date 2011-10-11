@@ -26,6 +26,12 @@
 #include <stdio.h>
 #include <augeas.h>
 
+/* Defines from Augeas' internal.h */
+#define AUGEAS_META_TREE "/augeas"
+#define AUGEAS_SPAN_OPTION AUGEAS_META_TREE "/span"
+#define AUG_ENABLE "enable"
+#define AUG_DISABLE "disable"
+
 typedef augeas   Config_Augeas ;
 typedef PerlIO*  OutputStream;
 
@@ -155,12 +161,10 @@ aug_span(aug, path);
       HV *span_hash;
     CODE:
       // Check that span is enabled
-      // FIXME: Use AUGEAS_SPAN_OPTION
-      if (aug_get(aug, "/augeas/span", &option) != 1) {
+      if (aug_get(aug, AUGEAS_SPAN_OPTION, &option) != 1) {
 	 croak ("Error: option /augeas/span not found\n");
       }
-      // FIXME: Use AUG_DISABLE
-      if (strcmp("disable", option) == 0) {
+      if (strcmp(AUG_DISABLE, option) == 0) {
 	 croak ("Error: Span is not enabled.\n");
       }
       ret = aug_span(aug, path, &filename, &label_start, &label_end, &value_start, &value_end, &span_start, &span_end);
