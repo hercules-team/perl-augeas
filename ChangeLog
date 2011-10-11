@@ -1,3 +1,8 @@
+2011-10-11  Raphaël Pinson <raphink@cpan.org> v0.802
+
+	* lib/Config/Augeas.xs: Use #ifndef to prevent future breakage
+	if Augeas exports its internal constants.
+
 2011-10-11  Raphaël Pinson <raphink@cpan.org> v0.801
 
 	* lib/Config/Augeas.pm: Added method aug_span
