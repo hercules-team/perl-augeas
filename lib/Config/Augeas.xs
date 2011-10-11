@@ -162,7 +162,7 @@ aug_span(aug, path);
     CODE:
       // Check that span is enabled
       if (aug_get(aug, AUGEAS_SPAN_OPTION, &option) != 1) {
-	 croak ("Error: option /augeas/span not found\n");
+	 croak ("Error: option %s not found\n", AUGEAS_SPAN_OPTION);
       }
       if (strcmp(AUG_DISABLE, option) == 0) {
 	 croak ("Error: Span is not enabled.\n");
