@@ -341,8 +341,19 @@ sub move {
 
 =head2 span ( path )
 
-Returns a hash containing the filename, label_start, label_end,
-value_start, value_end, span_start and span_end of the given C<path>.
+Returns a hash containing the C<filename>, C<label_start>, C<label_end>,
+C<value_start>, C<value_end>, C<span_start> and C<span_end> of the given C<path>.
+
+Example:
+
+  my $span = $aug->span('/files/etc/passwd/root') ;
+  # If filename is undefined, there are no valid span information for this node
+  if ($span->{filename}) {
+     print "Found root in passwd at character $span->{span_start}\n" ;
+  }
+
+WARNING: You must check that $span->{filename} is defined. If it isn't,
+the node has no span information and all other values in the hash are wrong.
 
 =cut
 
