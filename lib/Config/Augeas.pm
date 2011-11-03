@@ -1,4 +1,5 @@
 #    Copyright (c) 2008-2010 Dominique Dumont.
+#    Copyright (c) 2011 Raphaël Pinson.
 #
 #    This library is free software; you can redistribute it and/or
 #    modify it under the terms of the GNU Lesser Public License as
@@ -636,6 +637,7 @@ Dominique Dumont, E<lt>ddumont at cpan dot org@<gt>
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2008-2010 by Dominique Dumont
+Copyright (C) 2011 by Raphaël Pinson
 
 This library is free software; you can redistribute it and/or modify
 it under the LGPL terms.
