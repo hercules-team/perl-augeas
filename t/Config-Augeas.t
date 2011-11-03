@@ -8,7 +8,7 @@ use File::Copy ;
 
 use warnings ;
 use strict;
-use Test::More tests => 26 ;
+use Test::More tests => 27 ;
 
 ok(1,"Compilation done");
 
@@ -41,15 +41,15 @@ my $aug = Config::Augeas->new( root => $aug_root, save => 'newfile', enable_span
 ok($aug,"Created new Augeas object");
 
 my $ret = $aug->get("/files/etc/hosts/1/ipaddr") ;
-
 is($ret,'127.0.0.1',"Called get (returned $ret )");
 
-$ret = $aug->get("/files/etc/hosts/1/canonical") ;
+$ret = $aug->srun('get /files/etc/hosts/1/ipaddr') ;
+is($ret,'1',"Called srun get (returned $ret )");
 
+$ret = $aug->get("/files/etc/hosts/1/canonical") ;
 is($ret,'localhost',"Called get (returned $ret )");
 
 $aug->set("/files/etc/hosts/2/canonical","newbilbo") ;
-
 ok($aug,"Set new host");
 
 $ret = $aug->get("/files/etc/hosts/2/canonical") ;

@@ -22,7 +22,7 @@ use warnings;
 use Carp;
 use IO::File ;
 
-our $VERSION = '0.802';
+our $VERSION = '0.901';
 
 require XSLoader;
 XSLoader::load('Config::Augeas', $VERSION);
@@ -498,6 +498,50 @@ sub print {
 
     my $ret = $self->{aug_c} -> print($fd,$path) ;
     return $ret == 0 ? 1 : 0 ;
+}
+
+=head2 srun ( [ text  , [ file ] ] )
+
+Run one or more newline-separated commands listed in C<text>.
+Running just ‘help’ will print what commands are available.
+Commands accepted by this are identical to what augtool accepts.
+
+The second parameter can be :
+
+=over
+
+=item *
+
+A file name. 
+
+=item *
+
+Omitted. In this case, print to STDOUT
+
+=back
+
+The function returns the number of executed commands on success,
+and 0 otherwise.
+
+=cut
+
+sub srun {
+    my $self   = shift ;
+    my $text   = shift || '' ;
+    my $f_param     = shift ;
+
+    my $fd = IO::File->new ;
+
+    if (defined $f_param) {
+	$fd->open($f_param,"w");
+    }
+    else {
+	# stdio 
+	$fd->fdopen(fileno(STDOUT),"w");
+    } 
+
+    my $ret = $self->{aug_c} -> srun($fd,$text) ;
+    return $ret > 0 ? $ret : 0 ;
 }
 
 =head1 Error reporting

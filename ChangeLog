@@ -1,3 +1,8 @@
+2011-11-03  Raphaël Pinson <raphink@cpan.org> v0.901
+
+	* lib/Config/Augeas.pm: Added method aug_srun.
+	* lib/Config/Augeas.xs: Added interface for aug_srun.
+
 2011-10-11  Raphaël Pinson <raphink@cpan.org> v0.802
 
 	* lib/Config/Augeas.xs: Use #ifndef to prevent future breakage

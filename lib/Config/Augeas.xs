@@ -266,6 +266,22 @@ aug_print(aug, stream, path);
     OUTPUT:
         RETVAL
 
+int
+aug_srun(aug, stream, text);
+        Config_Augeas *aug
+	OutputStream stream
+	const char* text
+    PREINIT:
+        FILE *fp ;
+    CODE:
+        fp = PerlIO_findFILE(stream);
+        if (fp != (FILE*) 0) {
+             RETVAL = aug_srun(aug, fp, text);
+         } else {
+             RETVAL = -1;
+         }
+    OUTPUT:
+        RETVAL
 
  # Error reporting
 

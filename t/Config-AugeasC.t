@@ -6,7 +6,7 @@
 
 # change 'tests => 2' to 'tests => last_test_to_print';
 
-use Test::More tests => 25;
+use Test::More tests => 29;
 use ExtUtils::testlib;
 use File::Path ;
 use File::Copy ;
@@ -112,12 +112,16 @@ my $written_file = $aug_root."etc/hosts.augnew" ;
 unlink ($written_file) if -e $written_file ;
 
 my $augc = Config::Augeas::init($aug_root, '' ,
-				&Config::Augeas::AUG_SAVE_NEWFILE) ;
+				&Config::Augeas::AUG_SAVE_NEWFILE |
+                                &Config::Augeas::AUG_ENABLE_SPAN) ;
 
 ok($augc,"Created new Augeas object");
 
 my $string = $augc->get("/files/etc/hosts/1/ipaddr") ;
 is($string,'127.0.0.1',"Called get (returned $string )");
+
+$ret = $augc->srun(*STDOUT, 'get /files/etc/hosts/1/ipaddr') ;
+is($ret,'1',"Called srun get (returned $ret )");
 
 $ret = $augc->set("/files/etc/hosts/2/ipaddr","192.168.0.1") ;
 $ret = $augc->set("/files/etc/hosts/2/canonical","bilbo") ;
@@ -152,6 +156,11 @@ is_deeply(\@a,["/files/etc/hosts"],"match result") ;
 
 $ret = $augc->count_match("/files/etc/hosts") ;
 is($ret,1,"count_match result") ;
+
+my $span = $augc->span('/files/etc/hosts/2') ;
+is($span->{filename}, 'augeas-root/etc/hosts', "filename of span /files/etc/hosts/2") ;
+is($span->{span_start}, '30', "span_start of span /files/etc/hosts/2") ;
+is($span->{span_end}, '48', "span_start of span /files/etc/hosts/2") ;
 
 $ret = $augc->save ;
 is($ret,0,"save done") ;
