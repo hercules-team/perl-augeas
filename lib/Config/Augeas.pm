@@ -504,7 +504,7 @@ sub print {
 =head2 srun ( [ text  , [ file ] ] )
 
 Run one or more newline-separated commands listed in C<text>.
-Running just ‘help’ will print what commands are available.
+Running just C<help> will print what commands are available.
 Commands accepted by this are identical to what augtool accepts.
 
 The second parameter can be :
@@ -626,18 +626,45 @@ GUI and advanced validation).
 
 =item *
 
+L<Config::Augeas::Validator> : A unit test framework for configuration files.
+
+=item *
+
+L<Config::Augeas::Exporter> : A module to export the Augeas tree to various formats.
+
+=item *
+
 Augeas mailing list: http://augeas.net/developers.html
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over
+
+=item *
 
 Dominique Dumont, E<lt>ddumont at cpan dot org@<gt>
 
+=item *
+
+Raphael Pinson, E<lt>raphink at cpan dot org@<gt>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
+=over
+
+=item *
+
 Copyright (C) 2008-2010 by Dominique Dumont
-Copyright (C) 2011 by Raphaël Pinson
+
+=item *
+
+Copyright (C) 2011 by Raphael Pinson
+
+=back
 
 This library is free software; you can redistribute it and/or modify
 it under the LGPL terms.
