@@ -547,6 +547,10 @@ GUI and advanced validation).
 
 Augeas mailing list: http://augeas.net/developers.html
 
+=item *
+
+Source repository: https://github.com/raphink/config-augeas
+
 =back
 
 =head1 AUTHOR

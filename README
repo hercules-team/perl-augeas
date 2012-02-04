@@ -37,6 +37,10 @@ This module requires these other modules and libraries:
 - pkgconfig
 - Test::Pod to test document generation
 
+SOURCE REPOSITORY
+
+https://github.com/raphink/config-augeas
+
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2008-2009 by Dominique Dumont
