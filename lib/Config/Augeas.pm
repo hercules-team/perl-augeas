@@ -243,11 +243,7 @@ sub set {
 
     my $result ;
     my $ret = $self->{aug_c} -> set($path,$value) ;
-
-    return 1 if $ret == 0;
-
-    $self -> print('/augeas') ;
-    croak __PACKAGE__," set: error with path $path";
+    return $ret == 0 ? 1 : 0 ;
 }
 
 =head2 insert ( label, before | after , path )
@@ -281,11 +277,7 @@ sub insert {
 
     my $result ;
     my $ret = $self->{aug_c} -> insert($path,$label, $before) ;
-
-    return 1 if $ret == 0;
-
-    $self->print('/augeas') ;
-    croak __PACKAGE__," insert: error with path $path";
+    return $ret == 0 ? 1 : 0 ;
 }
 
 =head2 remove ( path )
