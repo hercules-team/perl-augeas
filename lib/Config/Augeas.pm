@@ -453,11 +453,13 @@ sub print {
     my $fd = IO::File->new ;
 
     if (defined $f_param) {
-	$fd->open($f_param,"w");
+        $fd->open($f_param,"w")
+            or croak  __PACKAGE__," opening '$f_param' for writing failed";
     }
     else {
 	# stdio 
-	$fd->fdopen(fileno(STDOUT),"w");
+	$fd->fdopen(fileno(STDOUT),"w")
+            or croak __PACKAGE__, " couldn't create handle to STDOUT";
     } 
 
     my $ret = $self->{aug_c} -> print($fd,$path) ;
