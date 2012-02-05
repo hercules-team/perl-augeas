@@ -20,6 +20,7 @@ use Module::Build;
 
 use warnings FATAL => qw(all) ;
 use strict ;
+use version 0.77;
 
 # snatched from ExtUtils::PkgConfig
 # don't go any further if pkg-config cannot be found.
@@ -52,12 +53,27 @@ EOW1
     exit 0;
 }
 
+my $libxml2_libs = `pkg-config --libs libxml-2.0` ;
+my $libxml2_cflags = `pkg-config --cflags libxml-2.0` ;
+
+if (not defined $libxml2_libs or not defined $libxml2_cflags
+    or not $libxml2_libs or not $libxml2_cflags) {
+    warn << "EOW1" ;
+***
+*** 'pkg-config' did not find xml2 lib or xml2 header files. Config::Augeas
+*** needs both xml2 library and xml2 header files to be compiled.
+***
+EOW1
+    exit 0;
+}
+
 my $aug_version = `pkg-config --modversion augeas` ;
 chomp($aug_cflags, $aug_libs, $aug_version) ;
+chomp($libxml2_cflags, $libxml2_libs) ;
 
-my $min_version = '0.6.0' ;
+my $min_version = '0.10.0' ;
 
-if (   not defined $aug_version or ( $aug_version lt $min_version)) {
+if (   not defined $aug_version or ( version->parse($aug_version) lt version->parse($min_version))) {
     warn << "EOW2" ;
 ***
 *** 'pkg-config' did find augeas version $aug_version but 
@@ -68,6 +84,7 @@ EOW2
 }
 
 print "Using $aug_libs and $aug_cflags to compile (Augeas version $aug_version)\n" ;
+print "Using $libxml2_libs and $libxml2_cflags to compile (Augeas version $aug_version)\n" ;
 
 
 my $build = Module::Build->new
@@ -79,8 +96,8 @@ my $build = Module::Build->new
    dist_abstract => "Edit configuration files through Augeas C library",
 
    dynamic_config       => 1,
-   extra_compiler_flags => $aug_cflags . ' -Wall -Wformat -Werror=format-security',
-   extra_linker_flags   => $aug_libs,
+   extra_compiler_flags => $aug_cflags . ' ' . $libxml2_cflags . ' -Wall -Wformat -Werror=format-security',
+   extra_linker_flags   => $aug_libs . ' ' . $libxml2_cflags,
 
    build_requires => {
                       'Test::More'      => 0,
