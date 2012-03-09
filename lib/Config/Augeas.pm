@@ -1,5 +1,5 @@
 #    Copyright (c) 2008-2010 Dominique Dumont.
-#    Copyright (c) 2011 Raphaël Pinson.
+#    Copyright (c) 2011-2012 Raphaël Pinson.
 #
 #    This library is free software; you can redistribute it and/or
 #    modify it under the terms of the GNU Lesser Public License as
@@ -660,7 +660,7 @@ Copyright (C) 2008-2010 by Dominique Dumont
 
 =item *
 
-Copyright (C) 2011 by Raphael Pinson
+Copyright (C) 2011-2012 by Raphael Pinson
 
 =back
 
