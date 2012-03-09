@@ -92,7 +92,7 @@ my $build = Module::Build->new
    module_name   => 'Config::Augeas',
    license       => 'lgpl',
    dist_version_from  => 'lib/Config/Augeas.pm' ,
-   dist_author   => "Dominique Dumont (ddumont at cpan dot org)",
+   dist_author   => "Raphaël Pinson (raphink at cpan dot org)",
    dist_abstract => "Edit configuration files through Augeas C library",
 
    dynamic_config       => 1,
