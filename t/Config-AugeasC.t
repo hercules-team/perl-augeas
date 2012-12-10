@@ -6,7 +6,7 @@
 
 # change 'tests => 2' to 'tests => last_test_to_print';
 
-use Test::More tests => 29;
+use Test::More tests => 30;
 use ExtUtils::testlib;
 use File::Path ;
 use File::Copy ;
@@ -161,6 +161,14 @@ my $span = $augc->span('/files/etc/hosts/2') ;
 is($span->{filename}, 'augeas-root/etc/hosts', "filename of span /files/etc/hosts/2") ;
 is($span->{span_start}, '30', "span_start of span /files/etc/hosts/2") ;
 is($span->{span_end}, '48', "span_start of span /files/etc/hosts/2") ;
+
+# Test text_store and text_retrieve
+my $hosts = "192.168.0.1 rtr.example.com router\n";
+$augc->set('/raw/hosts', $hosts);
+$augc->text_store('Hosts.lns', '/raw/hosts', '/t1');
+$augc->text_retrieve('Hosts.lns', '/raw/hosts', '/t1', '/out/hosts');
+my $hosts_out = $augc->get('/out/hosts');
+is($hosts_out, $hosts, "retrieve ok");
 
 $ret = $augc->save ;
 is($ret,0,"save done") ;

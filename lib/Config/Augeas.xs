@@ -140,6 +140,21 @@ aug_set(aug, path, c_value)
       const char* path
       char* c_value
 
+int
+aug_text_store(aug, lens, node, path)
+      Config_Augeas* aug
+      const char* lens
+      const char* node
+      const char* path
+
+int
+aug_text_retrieve(aug, lens, node_in, path, node_out)
+      Config_Augeas* aug
+      const char* lens
+      const char* node_in
+      const char* path
+      const char* node_out
+
 int 
 aug_insert(aug, path, label, before)
       Config_Augeas* aug
