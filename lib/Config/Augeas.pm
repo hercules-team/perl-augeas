@@ -371,6 +371,24 @@ sub move {
 }
 
 
+=head2 rename ( src, dest )
+
+Rename the label of all nodes matching C<src> to C<lbl>.
+
+Returns the number of nodes renamed on success and -1 on failure.
+
+=cut
+
+sub rename {
+    my $self   = shift ;
+    my $src    = shift || croak __PACKAGE__," rename: undefined src";
+    my $dst    = shift || croak __PACKAGE__," rename: undefined dst";
+
+    my $result = $self->{aug_c} -> rename($src,$dst) ;
+    return $result;
+}
+
+
 =head2 span ( path )
 
 Returns a hash containing the C<filename>, C<label_start>, C<label_end>,

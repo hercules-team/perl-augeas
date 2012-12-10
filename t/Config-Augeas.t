@@ -8,7 +8,7 @@ use File::Copy ;
 
 use warnings ;
 use strict;
-use Test::More tests => 28 ;
+use Test::More tests => 30 ;
 
 ok(1,"Compilation done");
 
@@ -135,5 +135,14 @@ $aug->text_store('Hosts.lns', '/raw/hosts', '/t1');
 $aug->text_retrieve('Hosts.lns', '/raw/hosts', '/t1', '/out/hosts');
 my $hosts_out = $aug->get('/out/hosts');
 is($hosts_out, $hosts, "retrieve ok");
+
+# Test rename
+$aug->set('/a/b/c', 'value');
+$ret = $aug->rename('/a/b/c', 'd');
+is($ret,1,"rename ok") ;
+
+$aug->set('/a/e/d', 'value2');
+$ret = $aug->rename('/a//d', 'x');
+is($ret,2,"rename ok") ;
 
 #$aug->print('') ;

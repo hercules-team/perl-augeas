@@ -6,7 +6,7 @@
 
 # change 'tests => 2' to 'tests => last_test_to_print';
 
-use Test::More tests => 30;
+use Test::More tests => 32;
 use ExtUtils::testlib;
 use File::Path ;
 use File::Copy ;
@@ -169,6 +169,15 @@ $augc->text_store('Hosts.lns', '/raw/hosts', '/t1');
 $augc->text_retrieve('Hosts.lns', '/raw/hosts', '/t1', '/out/hosts');
 my $hosts_out = $augc->get('/out/hosts');
 is($hosts_out, $hosts, "retrieve ok");
+
+# Test rename
+$augc->set('/a/b/c', 'value');
+$ret = $augc->rename('/a/b/c', 'd');
+is($ret,1,"rename ok") ;
+
+$augc->set('/a/e/d', 'value2');
+$ret = $augc->rename('/a//d', 'x');
+is($ret,2,"rename ok") ;
 
 $ret = $augc->save ;
 is($ret,0,"save done") ;

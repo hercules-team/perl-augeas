@@ -173,6 +173,12 @@ aug_mv(aug, src, dst);
       const char *src
       const char *dst
 
+int
+aug_rename(aug, src, dst);
+      Config_Augeas *aug
+      const char *src
+      const char *dst
+
 SV*
 aug_span(aug, path);
       Config_Augeas* aug
