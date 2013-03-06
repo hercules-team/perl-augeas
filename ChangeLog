@@ -1,3 +1,11 @@
+2013-03-06  Raphaël Pinson <raphink@cpan.org> v1.000
+
+	* Added Travis CI support.
+	* lib/Config/Augeas.pm: Added methods text_store, text_retrieve and
+	rename.
+	* lib/Config/Augeas.xs: Added interface for aug_text_store,
+	aug_text_retrieve and aug_rename.
+
 2012-03-09  Raphaël Pinson <raphink@cpan.org> v0.903
 
 	* lib/Config/Augeas.pm: Improve doc.
