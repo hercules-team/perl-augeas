@@ -71,7 +71,7 @@ my $aug_version = `pkg-config --modversion augeas` ;
 chomp($aug_cflags, $aug_libs, $aug_version) ;
 chomp($libxml2_cflags, $libxml2_libs) ;
 
-my $min_version = '0.10.0' ;
+my $min_version = '1.0.0' ;
 
 if (   not defined $aug_version or ( version->parse($aug_version) lt version->parse($min_version))) {
     warn << "EOW2" ;
