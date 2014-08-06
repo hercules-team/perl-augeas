@@ -9,3 +9,7 @@ install:
   - sudo add-apt-repository -y ppa:raphink/augeas-dev
   - sudo apt-get update
   - sudo apt-get install libaugeas-dev libtest-pod-perl
+before_install:
+  cpanm -n Devel::Cover::Report::Coveralls
+script:
+  perl Build.PL && ./Build build && cover -test -report coveralls
