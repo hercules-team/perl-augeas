@@ -1,7 +1,7 @@
 Config-Augeas
 =============
 
-[![Build Status](https://img.shields.io/travis/hercules-team/perl-augeas.svg)](https://travis-ci.org/hercules-team/perl-augeas-check)
+[![Build Status](https://img.shields.io/travis/hercules-team/perl-augeas.svg)](https://travis-ci.org/hercules-team/perl-augeas)
 [![CPAN Version](https://img.shields.io/cpan/v/Config-Augeas.svg)](https://metacpan.org/release/Config-Augeas)
 
 Augeas is a library that focuses on the most basic problem in handling
